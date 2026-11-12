@@ -6,7 +6,7 @@
     "foundIssue": "Rozilik katakchasi va validatsiya yetarli darajada qat’iy emas edi",
     "fixApplied": "Majburiy rozilik tekshiruvi va xavfsiz ID generatsiyasi mustahkamlandi",
     "status": "TUZATILDI",
-    "details": "Murojaat muvaffaqiyatli saqlandi. ID: TKTI-2026-0111"
+    "details": "Murojaat muvaffaqiyatli saqlandi. ID: TKTI-2026-0115"
   },
   {
     "testNumber": 2,
@@ -15,7 +15,7 @@
     "foundIssue": "Server xotirasida alohida disk fayli sifatida saqlanmas edi",
     "fixApplied": "data/uploads papkasida doimiy binar fayl sifatida saqlash va unikal nom berish tizimi yaratildi",
     "status": "TUZATILDI",
-    "details": "Fayl server diskiga yozildi: f_1794489065320_2205f7a7_reaktivlar_royxati.pdf"
+    "details": "Fayl server diskiga yozildi: f_1794490609075_f4963a59_reaktivlar_royxati.pdf"
   },
   {
     "testNumber": 3,
@@ -24,7 +24,7 @@
     "foundIssue": "Fayl manzillari uchun dedicated HTTP route yo‘q edi",
     "fixApplied": "GET /api/files/:filename route qo‘shildi, diskda doimiy saqlanishi kafolatlandi",
     "status": "TUZATILDI",
-    "details": "Fayl diskda mavjud va HTTP orqali 200 OK qaytardi (/app/applet/data/uploads/f_1794489065320_2205f7a7_reaktivlar_royxati.pdf)"
+    "details": "Fayl diskda mavjud va HTTP orqali 200 OK qaytardi (/app/applet/data/uploads/f_1794490609075_f4963a59_reaktivlar_royxati.pdf)"
   },
   {
     "testNumber": 4,
@@ -42,7 +42,7 @@
     "foundIssue": "O‘chirilganlar bilan aralashish xavfi bor edi",
     "fixApplied": "view=active filtri orqali faqat faol murojaatlar ko‘rsatilishi ta’minlandi",
     "status": "TUZATILDI",
-    "details": "Admin ro‘yxatida jami 12 ta faol murojaat ko‘rindi"
+    "details": "Admin ro‘yxatida jami 16 ta faol murojaat ko‘rindi"
   },
   {
     "testNumber": 6,
@@ -51,7 +51,7 @@
     "foundIssue": "Fayllarni to‘g‘ridan-to‘g‘ri serverdan yuklab olish (Content-Disposition: attachment) yo‘q edi",
     "fixApplied": "GET /api/files/download/:filename endpointi joriy qilindi",
     "status": "TUZATILDI",
-    "details": "Yuklab olish so‘rovi muvaffaqiyatli o‘tdi. Header: attachment; filename=\"2205f7a7_reaktivlar_royxati.pdf\""
+    "details": "Yuklab olish so‘rovi muvaffaqiyatli o‘tdi. Header: attachment; filename=\"f4963a59_reaktivlar_royxati.pdf\""
   },
   {
     "testNumber": 7,
@@ -78,7 +78,7 @@
     "foundIssue": "O‘chirilgan arizalarni qayta tiklash imkoniyati yo‘q edi",
     "fixApplied": "Soft-delete (Chiqindi qutisi) tizimi joriy etildi, asosiy ro‘yxatdan chiqarilib Chiqindi qutisiga o‘tkazildi",
     "status": "TUZATILDI",
-    "details": "Murojaat asosiy ro‘yxatdan olindi va Chiqindi qutisiga joylashtirildi (ID: TKTI-2026-0111)"
+    "details": "Murojaat asosiy ro‘yxatdan olindi va Chiqindi qutisiga joylashtirildi (ID: TKTI-2026-0115)"
   },
   {
     "testNumber": 10,
@@ -87,7 +87,7 @@
     "foundIssue": "Admin yanglishib o‘chirgan taqdirda qaytarib bo‘lmas edi",
     "fixApplied": "POST /api/admin/appeals/:id/restore funksiyasi orqali to‘liq qayta tiklash ta’minlandi",
     "status": "TUZATILDI",
-    "details": "Murojaat avvalgi holati bilan asosiy ro‘yxatga qaytarildi (ID: TKTI-2026-0111)"
+    "details": "Murojaat avvalgi holati bilan asosiy ro‘yxatga qaytarildi (ID: TKTI-2026-0115)"
   },
   {
     "testNumber": 11,
@@ -114,7 +114,7 @@
     "foundIssue": "O‘chirilgan murojaatlar ham Excelga tushib qolar edi",
     "fixApplied": "Excel eksport faqat faol arizalarni saralaydi, ustunlar tartiblandi",
     "status": "TUZATILDI",
-    "details": "Excel fayli muvaffaqiyatli shakllantirildi (28480 bayt)"
+    "details": "Excel fayli muvaffaqiyatli shakllantirildi (31631 bayt)"
   },
   {
     "testNumber": 14,
@@ -132,6 +132,6 @@
     "foundIssue": "Binar fayllar xavfsiz papkada alohida saqlanishi kerak edi",
     "fixApplied": "data/appeals.json va data/uploads/ diski to‘liq sinxron holatda saqlanadi",
     "status": "ISHLAYDI",
-    "details": "Ma’lumotlar bazada mavjud (12 ta yozuv) va diskdagi fayl saqlanib turibdi"
+    "details": "Ma’lumotlar bazada mavjud (16 ta yozuv) va diskdagi fayl saqlanib turibdi"
   }
 ]

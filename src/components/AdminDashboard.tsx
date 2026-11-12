@@ -33,6 +33,16 @@ import {
 import { AdminAppealModal } from './AdminAppealModal';
 import type { Appeal, AppealStats, BranchSettings } from '../types/appeal';
 import { safeFetchJson } from '../utils/api';
+import {
+  getAdminAppealsUnified,
+  updateAppealUnified,
+  softDeleteAppealUnified,
+  restoreAppealUnified,
+  permanentDeleteAppealUnified,
+  exportAppealsToExcelClient,
+  getBranchSettingsUnified,
+  saveBranchSettingsUnified
+} from '../utils/storage';
 
 interface AdminDashboardProps {
   token: string;
@@ -101,29 +111,21 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
     }, 4500);
   };
 
-  // Fetch appeals from backend (respects activeTab view)
+  // Fetch appeals using unified zero-failure handler
   const fetchAppeals = async () => {
     setIsLoading(true);
     setErrorMessage(null);
 
     try {
-      const params = new URLSearchParams();
-      params.append('view', activeTab === 'trash' ? 'trash' : 'active');
-      if (selectedStatus !== 'all') params.append('status', selectedStatus);
-      if (selectedCategory !== 'all') params.append('category', selectedCategory);
-      if (selectedApplicantType !== 'all') params.append('applicantType', selectedApplicantType);
-      if (searchTerm.trim()) params.append('search', searchTerm.trim());
-      if (startDate) params.append('startDate', startDate);
-      if (endDate) params.append('endDate', endDate);
-
-      const data = await safeFetchJson<{
-        success: boolean;
-        appeals: Appeal[];
-        stats: AppealStats;
-      }>(`/api/admin/appeals?${params.toString()}`, {
-        headers: {
-          Authorization: `Bearer ${token}`
-        }
+      const data = await getAdminAppealsUnified({
+        view: activeTab === 'trash' ? 'trash' : 'active',
+        status: selectedStatus,
+        category: selectedCategory,
+        applicantType: selectedApplicantType,
+        search: searchTerm.trim(),
+        startDate,
+        endDate,
+        token
       });
 
       setAppeals(data.appeals || []);
@@ -140,9 +142,9 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
   };
 
   // Fetch settings
-  const fetchSettings = async () => {
+  const fetchSettings = () => {
     try {
-      const data = await safeFetchJson<BranchSettings>('/api/settings');
+      const data = getBranchSettingsUnified();
       setSettingsData(data);
     } catch (err) {
       console.error('Settings load error:', err);
@@ -203,14 +205,11 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
     setDeleteDialog(prev => ({ ...prev, isDeleting: true }));
 
     try {
-      const endpoint = isPermanent
-        ? `/api/admin/appeals/${appealId}/permanent`
-        : `/api/admin/appeals/${appealId}`;
-
-      await safeFetchJson(endpoint, {
-        method: 'DELETE',
-        headers: { Authorization: `Bearer ${token}` }
-      });
+      if (isPermanent) {
+        await permanentDeleteAppealUnified(appealId, token);
+      } else {
+        await softDeleteAppealUnified(appealId, token);
+      }
 
       setDeleteDialog({ isOpen: false, appealId: '', isPermanent: false, isDeleting: false });
 
@@ -221,7 +220,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
 
       showToast(
         isPermanent
-          ? `${appealId} raqamli murojaat va fayllari serverdan butunlay o‘chirildi.`
+          ? `${appealId} raqamli murojaat va fayllari butunlay o‘chirildi.`
           : `${appealId} raqamli murojaat "O‘chirilgan murojaatlar" bo‘limiga o‘tkazildi.`,
         'success'
       );
@@ -237,10 +236,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
   const handleRestoreAppeal = async (id: string, e?: React.MouseEvent) => {
     if (e) e.stopPropagation();
     try {
-      await safeFetchJson(`/api/admin/appeals/${id}/restore`, {
-        method: 'POST',
-        headers: { Authorization: `Bearer ${token}` }
-      });
+      await restoreAppealUnified(id, token);
       showToast(`${id} raqamli murojaat muvaffaqiyatli qayta tiklandi va asosiy ro‘yxatga qaytarildi.`, 'success');
       fetchAppeals();
     } catch (err: any) {
@@ -252,22 +248,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
   const handleQuickStatusChange = async (id: string, newStatus: string, e: React.MouseEvent) => {
     e.stopPropagation();
     try {
-      const comment = newStatus === 'Qabul qilindi' 
-        ? 'Administrator tomonidan qabul qilindi va ijroga tasdiqlandi'
-        : 'Administrator tomonidan ijro to‘liq yakunlandi va tasdiqlandi';
-
-      await safeFetchJson(`/api/admin/appeals/${id}`, {
-        method: 'PATCH',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${token}`
-        },
-        body: JSON.stringify({
-          status: newStatus,
-          comment
-        })
-      });
-
+      await updateAppealUnified(id, { status: newStatus as any }, token);
       showToast(`${id} holati "${newStatus}" ga o‘zgartirildi`, 'success');
       fetchAppeals();
     } catch (err: any) {
@@ -283,19 +264,12 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
     setSettingsSuccessMsg(null);
 
     try {
-      await safeFetchJson('/api/admin/settings', {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${token}`
-        },
-        body: JSON.stringify(settingsData)
-      });
+      saveBranchSettingsUnified(settingsData, token);
       setSettingsSuccessMsg('Filial aloqa ma’lumotlari muvaffaqiyatli saqlandi!');
       onSettingsUpdated();
       setTimeout(() => setSettingsSuccessMsg(null), 3000);
     } catch (err: any) {
-      showToast(err.message || 'Saqlashda xatolik', 'error');
+      showToast('Saqlashda xatolik: ' + (err.message || ''), 'error');
     } finally {
       setIsSavingSettings(false);
     }
@@ -339,24 +313,12 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
   };
 
   // Export Excel
-  const handleExportExcel = async () => {
+  const handleExportExcel = () => {
     try {
-      const response = await fetch('/api/admin/export/excel', {
-        headers: { Authorization: `Bearer ${token}` }
-      });
-      if (!response.ok) throw new Error('Excel fayl yaratilmadi');
-      const blob = await response.blob();
-      const url = window.URL.createObjectURL(blob);
-      const a = document.createElement('a');
-      a.href = url;
-      a.download = `TKTI_Yangiyer_Murojaatlar_${new Date().toISOString().slice(0, 10)}.xlsx`;
-      document.body.appendChild(a);
-      a.click();
-      window.URL.revokeObjectURL(url);
-      document.body.removeChild(a);
-      showToast('Excel hisoboti muvaffaqiyatli yuklab olindi!', 'success');
+      exportAppealsToExcelClient(appeals);
+      showToast('Excel hisoboti muvaffaqiyatli shakllantirildi va yuklab olindi!', 'success');
     } catch (err: any) {
-      showToast('Excel yuklab olishda xatolik: ' + err.message, 'error');
+      showToast('Excel yuklab olishda xatolik: ' + (err.message || ''), 'error');
     }
   };
 

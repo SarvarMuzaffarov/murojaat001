@@ -19,7 +19,7 @@ import {
   getStatusBadgeConfig 
 } from '../utils/constants';
 import type { Appeal, AppealStatus, AppealAttachment } from '../types/appeal';
-import { safeFetchJson } from '../utils/api';
+import { updateAppealUnified } from '../utils/storage';
 
 interface AdminAppealModalProps {
   appeal: Appeal | null;
@@ -75,31 +75,18 @@ export const AdminAppealModal: React.FC<AdminAppealModalProps> = ({
     setErrorMessage(null);
 
     try {
-      const data = await safeFetchJson<{
-        success: boolean;
-        message: string;
-        appeal: Appeal;
-      }>(`/api/admin/appeals/${appeal.id}`, {
-        method: 'PATCH',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${token}`
-        },
-        body: JSON.stringify({
-          status,
-          assignedDepartment,
-          assignedOfficer,
-          deadline,
-          officialResponse,
-          responseAttachment,
-          internalNotes,
-          comment: actionComment.trim() || undefined,
-          author: 'Administrator'
-        })
-      });
+      const updated = await updateAppealUnified(appeal.id, {
+        status,
+        assignedDepartment,
+        assignedOfficer,
+        deadline,
+        officialResponse,
+        responseAttachment,
+        internalNotes
+      }, token);
 
       setSaveSuccess(true);
-      onUpdateSuccess(data.appeal);
+      onUpdateSuccess(updated);
       setTimeout(() => {
         setSaveSuccess(false);
         onClose();

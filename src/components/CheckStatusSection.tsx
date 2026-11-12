@@ -12,7 +12,7 @@ import {
 } from 'lucide-react';
 import { getStatusBadgeConfig } from '../utils/constants';
 import type { Appeal, AppealStatus } from '../types/appeal';
-import { safeFetchJson } from '../utils/api';
+import { checkAppealUnified } from '../utils/storage';
 
 interface CheckStatusSectionProps {
   initialAppealId?: string;
@@ -53,21 +53,10 @@ export const CheckStatusSection: React.FC<CheckStatusSectionProps> = ({
     setIsLoading(true);
 
     try {
-      const data = await safeFetchJson<{
-        success: boolean;
-        appeal: any;
-      }>('/api/appeals/check', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          appealId: cleanId,
-          phone: cleanPh
-        })
-      });
-
-      setAppealData(data.appeal);
+      const appeal = await checkAppealUnified(cleanId, cleanPh);
+      setAppealData(appeal);
     } catch (err: any) {
-      setErrorMessage(err.message || 'Murojaatni tekshirishda xatolik yuz berdi');
+      setErrorMessage(err.message || 'Murojaat topilmadi. Murojaat ID raqami va telefon raqami to‘g‘ri kiritilganligini tekshiring.');
       setAppealData(null);
     } finally {
       setIsLoading(false);

@@ -18,7 +18,7 @@ import {
 } from 'lucide-react';
 import { APPLICANT_TYPES, APPEAL_CATEGORIES } from '../utils/constants';
 import type { ApplicantType, AppealCategory, AppealAttachment } from '../types/appeal';
-import { safeFetchJson } from '../utils/api';
+import { submitAppealUnified } from '../utils/storage';
 
 interface AppealFormSectionProps {
   onCheckAppeal: (appealId: string, phone: string) => void;
@@ -159,27 +159,15 @@ export const AppealFormSection: React.FC<AppealFormSectionProps> = ({
     setIsSubmitting(true);
 
     try {
-      const data = await safeFetchJson<{
-        success: boolean;
-        appealId: string;
-        message: string;
-        appeal: any;
-      }>('/api/appeals', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-          fullName: cleanFullName,
-          phone: phone.trim(),
-          email: email.trim() || undefined,
-          applicantType,
-          category,
-          subject: cleanSubject,
-          content: cleanContent,
-          attachments,
-          attachment: attachments.length > 0 ? attachments[0] : null
-        })
+      const data = await submitAppealUnified({
+        fullName: cleanFullName,
+        phone: phone.trim(),
+        email: email.trim() || undefined,
+        applicantType,
+        category,
+        subject: cleanSubject,
+        content: cleanContent,
+        attachments
       });
 
       setSubmittedAppealId(data.appealId);

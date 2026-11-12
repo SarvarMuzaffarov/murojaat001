@@ -1,5 +1,109 @@
 [
   {
+    "id": "TKTI-2026-0116",
+    "trackingCode": "TKTI-2026-0116",
+    "createdAt": "2026-11-12T13:36:49.076Z",
+    "updatedAt": "2026-11-12T13:36:49.127Z",
+    "fullName": "Xoliqova Nargiza Boboxonovna",
+    "phone": "+998 91 987 65 43",
+    "applicantType": "Professor-o‘qituvchi",
+    "category": "Taklif va tashabbuslar",
+    "subject": "Ilmiy tadqiqotlar uchun kimyoviy reaktivlar so‘rovi",
+    "content": "Ilmiy maqola va amaliy tadqiqot uchun zarur reaktivlar ro‘yxati biriktirilgan PDF faylda keltirilgan.",
+    "attachment": {
+      "id": "f_1794490609075_f4963a59",
+      "name": "reaktivlar_royxati.pdf",
+      "size": 68,
+      "type": "application/pdf",
+      "savedFilename": "f_1794490609075_f4963a59_reaktivlar_royxati.pdf",
+      "url": "/api/files/f_1794490609075_f4963a59_reaktivlar_royxati.pdf",
+      "downloadUrl": "/api/files/download/f_1794490609075_f4963a59_reaktivlar_royxati.pdf"
+    },
+    "attachments": [
+      {
+        "id": "f_1794490609075_f4963a59",
+        "name": "reaktivlar_royxati.pdf",
+        "size": 68,
+        "type": "application/pdf",
+        "savedFilename": "f_1794490609075_f4963a59_reaktivlar_royxati.pdf",
+        "url": "/api/files/f_1794490609075_f4963a59_reaktivlar_royxati.pdf",
+        "downloadUrl": "/api/files/download/f_1794490609075_f4963a59_reaktivlar_royxati.pdf"
+      }
+    ],
+    "consent": true,
+    "status": "Yakunlandi",
+    "isDeleted": false,
+    "history": [
+      {
+        "id": "h-1794490609127",
+        "timestamp": "2026-11-12T13:36:49.127Z",
+        "action": "Holat o‘zgartirildi: Yangi ➔ Yakunlandi",
+        "status": "Yakunlandi",
+        "comment": "Barcha zarur hujjatlar tayyorlanib, murojaat ijrosi to‘liq yakunlandi",
+        "author": "Administrator"
+      },
+      {
+        "id": "h-1794490609121",
+        "timestamp": "2026-11-12T13:36:49.121Z",
+        "action": "Murojaat ma’lumotlari yangilandi",
+        "status": "Yangi",
+        "comment": "Rasmiy javob tayyorlandi",
+        "author": "Administrator"
+      },
+      {
+        "id": "h-1794490609076",
+        "timestamp": "2026-11-12T13:36:49.076Z",
+        "action": "Murojaat yuborildi va ro‘yxatga olindi",
+        "status": "Yangi",
+        "author": "Murojaatchi"
+      }
+    ],
+    "assignedDepartment": "O‘quv-uslubiy bo‘lim",
+    "assignedOfficer": "Bosh mutaxassis A. Karimov",
+    "officialResponse": "Hurmatli professor, so‘rovingiz bo‘yicha kerakli reaktivlar sotib olish rejasi tasdiqlandi."
+  },
+  {
+    "id": "TKTI-2026-0115",
+    "trackingCode": "TKTI-2026-0115",
+    "createdAt": "2026-11-12T13:36:49.059Z",
+    "updatedAt": "2026-11-12T13:36:49.059Z",
+    "fullName": "Qodirov Jamshid Anvarovich",
+    "phone": "+998 90 123 45 67",
+    "email": "jamshid@student.uz",
+    "applicantType": "Talaba",
+    "category": "Ta’lim jarayoni",
+    "subject": "Dars jadvali va amaliy mashg‘ulotlar bo‘yicha taklif",
+    "content": "Hurmatli rahbariyat, kimyo laboratoriyasi amaliy mashg‘ulotlari vaqtini qayta ko‘rib chiqishingizni so‘rayman.",
+    "attachment": null,
+    "attachments": [],
+    "consent": true,
+    "status": "Yangi",
+    "isDeleted": false,
+    "history": [
+      {
+        "id": "h-1794490609153",
+        "timestamp": "2026-11-12T13:36:49.153Z",
+        "action": "Murojaat \"O‘chirilgan murojaatlar\" bo‘limidan qayta tiklandi",
+        "status": "Yangi",
+        "author": "Administrator"
+      },
+      {
+        "id": "h-1794490609135",
+        "timestamp": "2026-11-12T13:36:49.135Z",
+        "action": "Murojaat o‘chirildi va \"O‘chirilgan murojaatlar\" bo‘limiga o‘tkazildi",
+        "author": "Administrator"
+      },
+      {
+        "id": "h-1794490609059",
+        "timestamp": "2026-11-12T13:36:49.059Z",
+        "action": "Murojaat yuborildi va ro‘yxatga olindi",
+        "status": "Yangi",
+        "author": "Murojaatchi"
+      }
+    ],
+    "previousStatus": "Yangi"
+  },
+  {
     "id": "TKTI-2026-0114",
     "trackingCode": "TKTI-2026-0114",
     "createdAt": "2026-11-12T13:19:23.144Z",

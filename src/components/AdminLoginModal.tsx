@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { ShieldCheck, Lock, User, AlertCircle, X, KeyRound, Eye, EyeOff } from 'lucide-react';
-import { safeFetchJson } from '../utils/api';
+import { adminLoginUnified } from '../utils/storage';
 
 interface AdminLoginModalProps {
   isOpen: boolean;
@@ -36,77 +36,11 @@ export const AdminLoginModal: React.FC<AdminLoginModalProps> = ({
     setIsLoading(true);
 
     try {
-      let data: any = null;
-
-      // Primary attempt: /api/auth/login
-      try {
-        data = await safeFetchJson<{
-          success: boolean;
-          token: string;
-          user: any;
-        }>('/api/auth/login', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ username: cleanUser, password: cleanPass })
-        });
-      } catch (err1: any) {
-        // If wrong credentials returned (401), reject immediately
-        const errMsg1 = String(err1.message || '');
-        if (errMsg1.includes('noto‘g‘ri') || errMsg1.includes('401') || errMsg1.includes('Unauthorized')) {
-          throw new Error('Kiritilgan login yoki parol noto‘g‘ri. Iltimos, tekshirib qaytadan kiriting.');
-        }
-
-        // Try fallback endpoint /api/login
-        try {
-          data = await safeFetchJson<{
-            success: boolean;
-            token: string;
-            user: any;
-          }>('/api/login', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ username: cleanUser, password: cleanPass })
-          });
-        } catch (err2: any) {
-          const errMsg2 = String(err2.message || '');
-          if (errMsg2.includes('noto‘g‘ri') || errMsg2.includes('401') || errMsg2.includes('Unauthorized')) {
-            throw new Error('Kiritilgan login yoki parol noto‘g‘ri. Iltimos, tekshirib qaytadan kiriting.');
-          }
-
-          // If the network or server returned 404 / 502 / redirect blip,
-          // check if credentials match the verified admin credentials:
-          if (cleanUser.toLowerCase() === 'admin' && cleanPass === 'yangiyer2026') {
-            const fallbackToken = `token_admin_session_${Date.now()}_${Math.random().toString(36).substring(2, 10)}`;
-            data = {
-              success: true,
-              token: fallbackToken,
-              user: {
-                username: 'admin',
-                name: 'Murojaatlar koordinatori',
-                role: 'Administrator',
-                branch: 'TKTI Yangiyer filiali'
-              }
-            };
-          } else {
-            // Credentials don't match
-            throw new Error('Kiritilgan login yoki parol noto‘g‘ri. Iltimos, tekshirib qaytadan kiriting.');
-          }
-        }
-      }
-
-      if (!data || !data.token) {
-        throw new Error('Kiritilgan login yoki parol noto‘g‘ri');
-      }
-
+      const data = await adminLoginUnified(cleanUser, cleanPass);
       onLoginSuccess(data.token, data.user);
       onClose();
     } catch (err: any) {
-      const msg = err.message || '';
-      if (msg.includes('noto‘g‘ri') || msg.includes('401')) {
-        setErrorMessage('Kiritilgan login yoki parol noto‘g‘ri. Iltimos, tekshirib qaytadan kiriting.');
-      } else {
-        setErrorMessage(msg || 'Kirishda xatolik yuz berdi');
-      }
+      setErrorMessage(err.message || 'Kiritilgan login yoki parol noto‘g‘ri. Iltimos, tekshirib qaytadan kiriting.');
     } finally {
       setIsLoading(false);
     }

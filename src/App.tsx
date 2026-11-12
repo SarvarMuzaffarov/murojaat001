@@ -4,8 +4,11 @@ import { HeroSection } from './components/HeroSection';
 import { AppealFormSection } from './components/AppealFormSection';
 import { CheckStatusSection } from './components/CheckStatusSection';
 import { GuideSection } from './components/GuideSection';
+import { ContactSection } from './components/ContactSection';
+import { Footer } from './components/Footer';
 import { AdminLoginModal } from './components/AdminLoginModal';
 import { AdminDashboard } from './components/AdminDashboard';
+import { getBranchSettingsUnified } from './utils/storage';
 
 export default function App() {
   const [activeTab, setActiveTab] = useState<'home' | 'submit' | 'check' | 'admin'>('home');
@@ -78,6 +81,13 @@ export default function App() {
             />
 
             <GuideSection />
+            <ContactSection
+              settings={getBranchSettingsUnified()}
+              onGoToSubmit={() => {
+                setActiveTab('submit');
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+              }}
+            />
           </div>
         )}
 
@@ -124,6 +134,20 @@ export default function App() {
           )
         )}
       </main>
+
+      {/* Footer */}
+      <Footer
+        onNav={(tab) => {
+          if (tab === 'admin') {
+            if (isAdminLoggedIn) setActiveTab('admin');
+            else setIsAdminLoginModalOpen(true);
+          } else {
+            setActiveTab(tab as any);
+          }
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        }}
+        onOpenAdminLogin={() => setIsAdminLoginModalOpen(true)}
+      />
 
       {/* Admin Login Modal */}
       <AdminLoginModal
