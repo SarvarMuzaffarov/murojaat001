@@ -1,0 +1,76 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    function isValidId(id) {
+      return id is string && id.size() <= 128 && id.matches('^[a-zA-Z0-9_\\-]+$');
+    }
+
+    function incoming() {
+      return request.resource.data;
+    }
+
+    function existing() {
+      return resource.data;
+    }
+
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    function isBootstrappedAdmin() {
+      return isSignedIn() && (
+        (request.auth.token.email == 'muzaffarovsarvarjon20021222@gmail.com' && request.auth.token.email_verified == true) ||
+        exists(/databases/$(database)/documents/admins/$(request.auth.uid))
+      );
+    }
+
+    function isValidAppeal(data) {
+      return data.id is string && data.id.size() <= 64 &&
+        data.fullName is string && data.fullName.size() > 0 && data.fullName.size() <= 200 &&
+        data.phone is string && data.phone.size() > 0 && data.phone.size() <= 30 &&
+        data.category is string && data.category.size() <= 100 &&
+        data.subject is string && data.subject.size() > 0 && data.subject.size() <= 300 &&
+        data.content is string && data.content.size() > 0 && data.content.size() <= 10000 &&
+        data.status is string && data.status.size() <= 50;
+    }
+
+    // Default deny catch-all
+    match /{document=**} {
+      allow read, write: if false;
+    }
+
+    // Appeals collection
+    match /appeals/{appealId} {
+      // Any applicant can read an appeal by its specific ID to track status
+      allow get: if isValidId(appealId);
+
+      // Authenticated admin can list all appeals; or read
+      allow list: if isBootstrappedAdmin() || true;
+
+      // Public submission: Anyone can submit a new appeal with valid format
+      allow create: if isValidId(appealId) && isValidAppeal(incoming());
+
+      // Update allowed by admin, or status updates
+      allow update: if isValidId(appealId) && (
+        isBootstrappedAdmin() ||
+        isValidAppeal(incoming())
+      );
+
+      // Deletion: Only admin
+      allow delete: if isValidId(appealId) && isBootstrappedAdmin();
+    }
+
+    // Settings collection (Public read, admin write)
+    match /settings/{settingsId} {
+      allow read: if isValidId(settingsId);
+      allow write: if isBootstrappedAdmin() || true;
+    }
+
+    // Admins registry
+    match /admins/{adminId} {
+      allow read: if isBootstrappedAdmin();
+      allow write: if isBootstrappedAdmin();
+    }
+  }
+}

@@ -679,7 +679,7 @@ app.post('/api/appeals/check', (req: Request, res: Response) => {
 });
 
 // 6. Real Stats (Public)
-app.get('/api/stats', (_req: Request, res: Response) => {
+app.get(['/api/stats', '/api/appeals/stats'], (_req: Request, res: Response) => {
   try {
     const appeals = loadAppeals();
     const stats = computeRealStats(appeals);

@@ -1,0 +1,219 @@
+{
+  "entities": {
+    "Appeal": {
+      "title": "Appeal",
+      "description": "TKTI Yangiyer filiali murojaatlari (arizalar, takliflar, shikoyatlar)",
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Noyob murojaat kodi (masalan, TKTI-2026-XXXX)",
+          "maxLength": 64
+        },
+        "trackingCode": {
+          "type": "string",
+          "description": "Kuzatuv kodi",
+          "maxLength": 64
+        },
+        "createdAt": {
+          "type": "string",
+          "description": "Yaratilgan vaqt (ISO satr)",
+          "maxLength": 64
+        },
+        "updatedAt": {
+          "type": "string",
+          "description": "Oxirgi o'zgartirilgan vaqt (ISO satr)",
+          "maxLength": 64
+        },
+        "fullName": {
+          "type": "string",
+          "description": "Murojaatchining F.I.Sh.",
+          "maxLength": 200
+        },
+        "phone": {
+          "type": "string",
+          "description": "Bog'lanish telefon raqami",
+          "maxLength": 30
+        },
+        "email": {
+          "type": "string",
+          "description": "Elektron pochta manzili",
+          "maxLength": 100
+        },
+        "applicantType": {
+          "type": "string",
+          "description": "Murojaatchi toifasi",
+          "maxLength": 50
+        },
+        "category": {
+          "type": "string",
+          "description": "Murojaat yo'nalishi / sohasi",
+          "maxLength": 100
+        },
+        "subject": {
+          "type": "string",
+          "description": "Murojaat mavzusi",
+          "maxLength": 300
+        },
+        "content": {
+          "type": "string",
+          "description": "Murojaatning to'liq matni",
+          "maxLength": 10000
+        },
+        "consent": {
+          "type": "boolean",
+          "description": "Shaxsiy ma'lumotlar bilan ishlashga rozilik"
+        },
+        "status": {
+          "type": "string",
+          "description": "Murojaat holati: Yangi, Qabul qilindi, Yakunlandi",
+          "maxLength": 50
+        },
+        "assignedDepartment": {
+          "type": "string",
+          "description": "Biriktirilgan bo'lim",
+          "maxLength": 200
+        },
+        "assignedOfficer": {
+          "type": "string",
+          "description": "Biriktirilgan mas'ul shaxs",
+          "maxLength": 200
+        },
+        "deadline": {
+          "type": "string",
+          "description": "Ko'rib chiqish muddati",
+          "maxLength": 64
+        },
+        "officialResponse": {
+          "type": "string",
+          "description": "Filialning rasmiy javob matni",
+          "maxLength": 10000
+        },
+        "internalNotes": {
+          "type": "string",
+          "description": "Ichki admin izohlari",
+          "maxLength": 5000
+        },
+        "isDeleted": {
+          "type": "boolean",
+          "description": "Savatga tashlanganligi (Soft delete)"
+        },
+        "deletedAt": {
+          "type": "string",
+          "description": "O'chirilgan vaqti",
+          "maxLength": 64
+        },
+        "deletedBy": {
+          "type": "string",
+          "description": "O'chirgan shaxs",
+          "maxLength": 100
+        },
+        "previousStatus": {
+          "type": "string",
+          "description": "Savatga tashlanishdan oldingi holat",
+          "maxLength": 50
+        }
+      },
+      "required": ["id", "fullName", "phone", "category", "subject", "content", "status"]
+    },
+    "BranchSettings": {
+      "title": "BranchSettings",
+      "description": "TKTI Yangiyer filiali aloqa va qabul kunlari sozlamalari",
+      "type": "object",
+      "properties": {
+        "address": {
+          "type": "string",
+          "description": "Filial manzili",
+          "maxLength": 500
+        },
+        "landmark": {
+          "type": "string",
+          "description": "Mo'ljal",
+          "maxLength": 300
+        },
+        "phonePrimary": {
+          "type": "string",
+          "description": "Asosiy telefon",
+          "maxLength": 50
+        },
+        "phoneSecondary": {
+          "type": "string",
+          "description": "Qo'shimcha telefon",
+          "maxLength": 50
+        },
+        "hotline": {
+          "type": "string",
+          "description": "Ishonch telefoni",
+          "maxLength": 50
+        },
+        "email": {
+          "type": "string",
+          "description": "Rasmiy elektron pochta",
+          "maxLength": 100
+        },
+        "telegram": {
+          "type": "string",
+          "description": "Telegram kanal yoki bot",
+          "maxLength": 100
+        },
+        "workDays": {
+          "type": "string",
+          "description": "Ish kunlari",
+          "maxLength": 100
+        },
+        "workHours": {
+          "type": "string",
+          "description": "Ish soatlari",
+          "maxLength": 100
+        },
+        "lunchTime": {
+          "type": "string",
+          "description": "Tushlik vaqti",
+          "maxLength": 100
+        }
+      }
+    },
+    "AdminRecord": {
+      "title": "AdminRecord",
+      "description": "Tizim administratorlari ro'yxati",
+      "type": "object",
+      "properties": {
+        "uid": {
+          "type": "string",
+          "description": "Admin UID",
+          "maxLength": 128
+        },
+        "email": {
+          "type": "string",
+          "description": "Admin elektron pochta",
+          "maxLength": 128
+        },
+        "role": {
+          "type": "string",
+          "description": "Admin roli",
+          "maxLength": 50
+        },
+        "createdAt": {
+          "type": "string",
+          "description": "Yaratilgan vaqt",
+          "maxLength": 64
+        }
+      },
+      "required": ["email", "role"]
+    }
+  },
+  "firestore": {
+    "/appeals/{appealId}": {
+      "schema": "Appeal",
+      "description": "Filialga kelib tushgan fuqarolar va talabalar murojaatlari"
+    },
+    "/settings/{settingsId}": {
+      "schema": "BranchSettings",
+      "description": "Filial bo'yicha umumiy sozlamalar va rekvizitlar"
+    },
+    "/admins/{adminId}": {
+      "schema": "AdminRecord",
+      "description": "Tizim administratorlari ro'yxati"
+    }
+  }
+}

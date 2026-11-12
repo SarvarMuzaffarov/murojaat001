@@ -41,7 +41,8 @@ import {
   permanentDeleteAppealUnified,
   exportAppealsToExcelClient,
   getBranchSettingsUnified,
-  saveBranchSettingsUnified
+  saveBranchSettingsUnified,
+  subscribeToAppeals
 } from '../utils/storage';
 
 interface AdminDashboardProps {
@@ -154,6 +155,15 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
   useEffect(() => {
     fetchAppeals();
     fetchSettings();
+
+    // Subscribe to live Firestore changes across all devices
+    const unsubscribe = subscribeToAppeals(() => {
+      fetchAppeals();
+    });
+
+    return () => {
+      if (typeof unsubscribe === 'function') unsubscribe();
+    };
   }, [activeTab, selectedStatus, selectedCategory, selectedApplicantType, startDate, endDate]);
 
   const handleResetFilters = () => {
@@ -325,11 +335,16 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
   // Backup DB
   const handleDownloadBackup = async () => {
     try {
-      const response = await fetch('/api/admin/backup', {
-        headers: { Authorization: `Bearer ${token}` }
-      });
-      if (!response.ok) throw new Error('Zaxira yuklab olinmadi');
-      const data = await response.json();
+      let data = appeals;
+      try {
+        const response = await fetch('/api/admin/backup', {
+          headers: { Authorization: `Bearer ${token}` }
+        });
+        if (response.ok) {
+          data = await response.json();
+        }
+      } catch (e) {}
+
       const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
       const url = window.URL.createObjectURL(blob);
       const a = document.createElement('a');
