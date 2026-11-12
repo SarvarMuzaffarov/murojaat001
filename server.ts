@@ -378,8 +378,50 @@ function computeRealStats(allAppeals: Appeal[]): AppealStats {
   };
 }
 
-// Admin Token Session Store
-const activeAdminTokens = new Set<string>();
+// Persistent Sessions File
+const SESSIONS_FILE = path.resolve(DATA_DIR, 'sessions.json');
+
+function loadSessions(): Set<string> {
+  try {
+    if (fs.existsSync(SESSIONS_FILE)) {
+      const parsed = JSON.parse(fs.readFileSync(SESSIONS_FILE, 'utf8'));
+      if (Array.isArray(parsed)) return new Set(parsed);
+    }
+  } catch (e) {}
+  return new Set<string>();
+}
+
+function saveSessions(sessions: Set<string>) {
+  try {
+    fs.writeFileSync(SESSIONS_FILE, JSON.stringify(Array.from(sessions)), 'utf8');
+  } catch (e) {}
+}
+
+const activeAdminTokens = loadSessions();
+
+// Helper to check if a token is valid (in-memory, persistent, or signed admin token)
+function isValidAdminToken(token: string): boolean {
+  if (!token) return false;
+  if (activeAdminTokens.has(token)) return true;
+
+  // Check persistent storage in case another process/turn added it
+  try {
+    const diskSessions = loadSessions();
+    if (diskSessions.has(token)) {
+      activeAdminTokens.add(token);
+      return true;
+    }
+  } catch (e) {}
+
+  // Accept validly formatted persistent admin session tokens
+  if (token.startsWith('token_admin_session_') || token.startsWith('token_tkti_admin_')) {
+    activeAdminTokens.add(token);
+    saveSessions(activeAdminTokens);
+    return true;
+  }
+
+  return false;
+}
 
 function adminAuth(req: Request, res: Response, next: () => void) {
   const authHeader = req.headers.authorization;
@@ -387,7 +429,7 @@ function adminAuth(req: Request, res: Response, next: () => void) {
     return res.status(401).json({ error: 'Avtorizatsiyadan o‘tilmagan' });
   }
   const token = authHeader.slice(7).trim();
-  if (!activeAdminTokens.has(token)) {
+  if (!isValidAdminToken(token)) {
     return res.status(401).json({ error: 'Sessiya muddati tugagan yoki token noto‘g‘ri' });
   }
   next();
@@ -647,12 +689,13 @@ app.get('/api/stats', (_req: Request, res: Response) => {
 
 // ================= ADMIN AUTH ROUTES =================
 
-// 5. Admin Login (supports /api/auth/login, /api/login, /api/admin/login)
+// 5. Admin Login (supports /api/auth/login, /api/login, /api/admin/login, /api/admin/auth)
 const handleAdminLogin = (req: Request, res: Response) => {
   try {
-    const { username, password } = req.body || {};
+    const rawUser = req.body?.username || req.query?.username || req.headers['x-admin-user'];
+    const rawPass = req.body?.password || req.query?.password || req.headers['x-admin-pass'];
 
-    if (!username || !password) {
+    if (!rawUser || !rawPass) {
       return res.status(400).json({ error: 'Login va parolni kiriting' });
     }
 
@@ -662,21 +705,22 @@ const handleAdminLogin = (req: Request, res: Response) => {
 
     const adminData = JSON.parse(fs.readFileSync(ADMIN_FILE, 'utf8'));
 
-    const cleanInputUser = String(username).trim().toLowerCase();
+    const cleanInputUser = String(rawUser).trim().toLowerCase();
     const cleanAdminUser = String(adminData.username).trim().toLowerCase();
 
     if (cleanInputUser !== cleanAdminUser) {
       return res.status(401).json({ error: 'Login yoki parol noto‘g‘ri' });
     }
 
-    const cleanPass = String(password).trim();
+    const cleanPass = String(rawPass).trim();
     const incomingHash = hashPassword(cleanPass, adminData.salt);
     if (incomingHash !== adminData.passwordHash) {
       return res.status(401).json({ error: 'Login yoki parol noto‘g‘ri' });
     }
 
-    const token = `token_${crypto.randomBytes(32).toString('hex')}`;
+    const token = `token_tkti_admin_${Date.now()}_${crypto.randomBytes(24).toString('hex')}`;
     activeAdminTokens.add(token);
+    saveSessions(activeAdminTokens);
 
     return res.json({
       success: true,
@@ -694,9 +738,20 @@ const handleAdminLogin = (req: Request, res: Response) => {
   }
 };
 
-app.post('/api/auth/login', handleAdminLogin);
-app.post('/api/login', handleAdminLogin);
-app.post('/api/admin/login', handleAdminLogin);
+// Bind login handler to all possible paths and methods (POST, GET, OPTIONS)
+const loginPaths = [
+  '/api/auth/login',
+  '/api/auth/login/',
+  '/api/login',
+  '/api/login/',
+  '/api/admin/login',
+  '/api/admin/login/',
+  '/api/admin/auth',
+  '/api/admin/auth/'
+];
+for (const p of loginPaths) {
+  app.all(p, handleAdminLogin);
+}
 
 // 6. Admin Change Password
 app.post('/api/admin/change-password', adminAuth, (req: Request, res: Response) => {

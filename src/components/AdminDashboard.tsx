@@ -129,11 +129,11 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
       setAppeals(data.appeals || []);
       setStats(data.stats || null);
     } catch (err: any) {
-      if (err.message?.includes('401') || err.message?.includes('Avtorizatsiya')) {
+      if (err.message?.includes('401') || err.message?.includes('Avtorizatsiyadan o‘tilmagan')) {
         onLogout();
         return;
       }
-      setErrorMessage(err.message || 'Xatolik yuz berdi');
+      setErrorMessage(err.message || 'Murojaatlar ro‘yxatini yuklashda xatolik yuz berdi');
     } finally {
       setIsLoading(false);
     }
