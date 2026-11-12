@@ -27,7 +27,7 @@ export async function safeFetchJson<T = any>(
       throw new Error('Qisqa vaqt ichida juda ko‘p murojaat yuborildi. Iltimos, biroz kutib qaytadan urinib ko‘ring.');
     }
     if (response.status === 404) {
-      throw new Error('So‘ralgan ma’lumot yoki manzil topilmadi (404).');
+      throw new Error('So‘ralgan server manzili topilmadi yoki server qayta yuklanmoqda (404). Iltimos, bir ozdan so‘ng qayta urinib ko‘ring.');
     }
     if (response.status >= 500) {
       throw new Error(`Serverda vaqtinchalik texnik xatolik (${response.status}). Iltimos, 1-2 daqiqadan so‘ng qayta urinib ko‘ring.`);

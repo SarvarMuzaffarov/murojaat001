@@ -13,7 +13,7 @@ export const AdminLoginModal: React.FC<AdminLoginModalProps> = ({
   onClose,
   onLoginSuccess
 }) => {
-  const [username, setUsername] = useState('admin');
+  const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
@@ -37,6 +37,8 @@ export const AdminLoginModal: React.FC<AdminLoginModalProps> = ({
 
     try {
       let data: any = null;
+
+      // Attempt 1: primary endpoint /api/auth/login
       try {
         data = await safeFetchJson<{
           success: boolean;
@@ -47,35 +49,67 @@ export const AdminLoginModal: React.FC<AdminLoginModalProps> = ({
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ username: cleanUser, password: cleanPass })
         });
-      } catch (firstErr: any) {
-        if (firstErr.message && (firstErr.message.includes('404') || firstErr.message.includes('topilmadi'))) {
-          data = await safeFetchJson<{
-            success: boolean;
-            token: string;
-            user: any;
-          }>('/api/login', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ username: cleanUser, password: cleanPass })
-          });
+      } catch (err1: any) {
+        // If it was a 404 or connection blip (server restart / cold boot), wait 600ms and retry
+        const isTemporaryOr404 = err1.message && (
+          err1.message.includes('404') || 
+          err1.message.includes('topilmadi') ||
+          err1.message.includes('uzildi')
+        );
+
+        if (isTemporaryOr404) {
+          await new Promise((resolve) => setTimeout(resolve, 600));
+
+          // Attempt 2: fallback to /api/login
+          try {
+            data = await safeFetchJson<{
+              success: boolean;
+              token: string;
+              user: any;
+            }>('/api/login', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({ username: cleanUser, password: cleanPass })
+            });
+          } catch (err2: any) {
+            // Attempt 3: fallback to /api/admin/login
+            try {
+              data = await safeFetchJson<{
+                success: boolean;
+                token: string;
+                user: any;
+              }>('/api/admin/login', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ username: cleanUser, password: cleanPass })
+              });
+            } catch (err3: any) {
+              throw err3;
+            }
+          }
         } else {
-          throw firstErr;
+          throw err1;
         }
+      }
+
+      if (!data || !data.token) {
+        throw new Error('Serverdan yaroqsiz sessiya ma’lumoti qaytdi');
       }
 
       onLoginSuccess(data.token, data.user);
       onClose();
     } catch (err: any) {
-      setErrorMessage(err.message || 'Kirishda xatolik yuz berdi');
+      const msg = err.message || '';
+      if (msg.includes('404') || msg.includes('topilmadi')) {
+        setErrorMessage('Server API xizmati bilan aloqa o‘rnatilmadi (404). Server qayta ishga tushayotgan bo‘lishi mumkin, iltimos 2-3 soniyadan so‘ng qayta urinib ko‘ring yoki sahifani yangilang.');
+      } else if (msg.includes('noto‘g‘ri') || msg.includes('401') || msg.includes('Unauthorized')) {
+        setErrorMessage('Kiritilgan login yoki parol noto‘g‘ri. Iltimos, tekshirib qaytadan kiriting.');
+      } else {
+        setErrorMessage(msg || 'Kirishda xatolik yuz berdi');
+      }
     } finally {
       setIsLoading(false);
     }
-  };
-
-  const handleAutoFill = () => {
-    setUsername('admin');
-    setPassword('yangiyer2026');
-    setErrorMessage(null);
   };
 
   return (
@@ -123,6 +157,7 @@ export const AdminLoginModal: React.FC<AdminLoginModalProps> = ({
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
                 placeholder="Loginni kiriting"
+                autoComplete="username"
                 required
                 className="w-full pl-10 pr-4 py-2.5 rounded-xl border border-slate-300 focus:outline-none focus:ring-2 focus:ring-[#0f3b75] text-sm bg-white text-slate-900"
               />
@@ -142,6 +177,7 @@ export const AdminLoginModal: React.FC<AdminLoginModalProps> = ({
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 placeholder="Parolni kiriting"
+                autoComplete="current-password"
                 required
                 className="w-full pl-10 pr-10 py-2.5 rounded-xl border border-slate-300 focus:outline-none focus:ring-2 focus:ring-[#0f3b75] text-sm bg-white text-slate-900"
               />
@@ -159,7 +195,7 @@ export const AdminLoginModal: React.FC<AdminLoginModalProps> = ({
           <button
             type="submit"
             disabled={isLoading}
-            className="w-full flex items-center justify-center gap-2 py-3 px-4 bg-[#0f3b75] hover:bg-[#154685] text-white font-bold rounded-xl shadow-md transition-colors text-sm cursor-pointer"
+            className="w-full flex items-center justify-center gap-2 py-3 px-4 bg-[#0f3b75] hover:bg-[#154685] text-white font-bold rounded-xl shadow-md transition-colors text-sm cursor-pointer mt-2"
           >
             {isLoading ? (
               <>
@@ -173,20 +209,6 @@ export const AdminLoginModal: React.FC<AdminLoginModalProps> = ({
               </>
             )}
           </button>
-
-          {/* Quick Info & Auto-fill */}
-          <div className="pt-1 flex items-center justify-between p-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs">
-            <div className="text-[11px] text-slate-600">
-              Standart: <strong className="font-mono text-slate-800">admin</strong> / <strong className="font-mono text-slate-800">yangiyer2026</strong>
-            </div>
-            <button
-              type="button"
-              onClick={handleAutoFill}
-              className="px-2 py-1 bg-white hover:bg-slate-200 text-[#0f3b75] font-semibold rounded-lg border border-slate-300 text-[11px] cursor-pointer shadow-xs transition-colors"
-            >
-              To‘ldirish
-            </button>
-          </div>
         </form>
       </div>
     </div>
