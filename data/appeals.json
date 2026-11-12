@@ -1,0 +1,506 @@
+[
+  {
+    "id": "TKTI-2026-0110",
+    "trackingCode": "TKTI-2026-0110",
+    "createdAt": "2026-11-12T12:28:35.050Z",
+    "updatedAt": "2026-11-12T12:28:35.115Z",
+    "fullName": "Xoliqova Nargiza Boboxonovna",
+    "phone": "+998 91 987 65 43",
+    "applicantType": "Professor-o‘qituvchi",
+    "category": "Taklif va tashabbuslar",
+    "subject": "Ilmiy tadqiqotlar uchun kimyoviy reaktivlar so‘rovi",
+    "content": "Ilmiy maqola va amaliy tadqiqot uchun zarur reaktivlar ro‘yxati biriktirilgan PDF faylda keltirilgan.",
+    "attachment": {
+      "id": "f_1794486515049_24c958aa",
+      "name": "reaktivlar_royxati.pdf",
+      "size": 68,
+      "type": "application/pdf",
+      "savedFilename": "f_1794486515049_24c958aa_reaktivlar_royxati.pdf",
+      "url": "/api/files/f_1794486515049_24c958aa_reaktivlar_royxati.pdf",
+      "downloadUrl": "/api/files/download/f_1794486515049_24c958aa_reaktivlar_royxati.pdf"
+    },
+    "attachments": [
+      {
+        "id": "f_1794486515049_24c958aa",
+        "name": "reaktivlar_royxati.pdf",
+        "size": 68,
+        "type": "application/pdf",
+        "savedFilename": "f_1794486515049_24c958aa_reaktivlar_royxati.pdf",
+        "url": "/api/files/f_1794486515049_24c958aa_reaktivlar_royxati.pdf",
+        "downloadUrl": "/api/files/download/f_1794486515049_24c958aa_reaktivlar_royxati.pdf"
+      }
+    ],
+    "consent": true,
+    "status": "Yakunlandi",
+    "isDeleted": false,
+    "history": [
+      {
+        "id": "h-1794486515115",
+        "timestamp": "2026-11-12T12:28:35.115Z",
+        "action": "Holat o‘zgartirildi: Yangi ➔ Yakunlandi",
+        "status": "Yakunlandi",
+        "comment": "Barcha zarur hujjatlar tayyorlanib, murojaat ijrosi to‘liq yakunlandi",
+        "author": "Administrator"
+      },
+      {
+        "id": "h-1794486515105",
+        "timestamp": "2026-11-12T12:28:35.105Z",
+        "action": "Murojaat ma’lumotlari yangilandi",
+        "status": "Yangi",
+        "comment": "Rasmiy javob tayyorlandi",
+        "author": "Administrator"
+      },
+      {
+        "id": "h-1794486515050",
+        "timestamp": "2026-11-12T12:28:35.050Z",
+        "action": "Murojaat yuborildi va ro‘yxatga olindi",
+        "status": "Yangi",
+        "author": "Murojaatchi"
+      }
+    ],
+    "assignedDepartment": "O‘quv-uslubiy bo‘lim",
+    "assignedOfficer": "Bosh mutaxassis A. Karimov",
+    "officialResponse": "Hurmatli professor, so‘rovingiz bo‘yicha kerakli reaktivlar sotib olish rejasi tasdiqlandi."
+  },
+  {
+    "id": "TKTI-2026-0109",
+    "trackingCode": "TKTI-2026-0109",
+    "createdAt": "2026-11-12T12:28:35.034Z",
+    "updatedAt": "2026-11-12T12:28:35.034Z",
+    "fullName": "Qodirov Jamshid Anvarovich",
+    "phone": "+998 90 123 45 67",
+    "email": "jamshid@student.uz",
+    "applicantType": "Talaba",
+    "category": "Ta’lim jarayoni",
+    "subject": "Dars jadvali va amaliy mashg‘ulotlar bo‘yicha taklif",
+    "content": "Hurmatli rahbariyat, kimyo laboratoriyasi amaliy mashg‘ulotlari vaqtini qayta ko‘rib chiqishingizni so‘rayman.",
+    "attachment": null,
+    "attachments": [],
+    "consent": true,
+    "status": "Yangi",
+    "isDeleted": false,
+    "history": [
+      {
+        "id": "h-1794486515139",
+        "timestamp": "2026-11-12T12:28:35.139Z",
+        "action": "Murojaat \"O‘chirilgan murojaatlar\" bo‘limidan qayta tiklandi",
+        "status": "Yangi",
+        "author": "Administrator"
+      },
+      {
+        "id": "h-1794486515122",
+        "timestamp": "2026-11-12T12:28:35.122Z",
+        "action": "Murojaat o‘chirildi va \"O‘chirilgan murojaatlar\" bo‘limiga o‘tkazildi",
+        "author": "Administrator"
+      },
+      {
+        "id": "h-1794486515034",
+        "timestamp": "2026-11-12T12:28:35.034Z",
+        "action": "Murojaat yuborildi va ro‘yxatga olindi",
+        "status": "Yangi",
+        "author": "Murojaatchi"
+      }
+    ],
+    "previousStatus": "Yangi"
+  },
+  {
+    "id": "TKTI-2026-0108",
+    "trackingCode": "TKTI-2026-0108",
+    "createdAt": "2026-11-12T12:19:56.141Z",
+    "updatedAt": "2026-11-12T12:19:56.177Z",
+    "fullName": "Xoliqova Nargiza Boboxonovna",
+    "phone": "+998 91 987 65 43",
+    "applicantType": "Professor-o‘qituvchi",
+    "category": "Taklif va tashabbuslar",
+    "subject": "Ilmiy tadqiqotlar uchun kimyoviy reaktivlar so‘rovi",
+    "content": "Ilmiy maqola va amaliy tadqiqot uchun zarur reaktivlar ro‘yxati biriktirilgan PDF faylda keltirilgan.",
+    "attachment": {
+      "id": "f_1794485996140_0fe9d62e",
+      "name": "reaktivlar_royxati.pdf",
+      "size": 68,
+      "type": "application/pdf",
+      "savedFilename": "f_1794485996140_0fe9d62e_reaktivlar_royxati.pdf",
+      "url": "/api/files/f_1794485996140_0fe9d62e_reaktivlar_royxati.pdf",
+      "downloadUrl": "/api/files/download/f_1794485996140_0fe9d62e_reaktivlar_royxati.pdf"
+    },
+    "attachments": [
+      {
+        "id": "f_1794485996140_0fe9d62e",
+        "name": "reaktivlar_royxati.pdf",
+        "size": 68,
+        "type": "application/pdf",
+        "savedFilename": "f_1794485996140_0fe9d62e_reaktivlar_royxati.pdf",
+        "url": "/api/files/f_1794485996140_0fe9d62e_reaktivlar_royxati.pdf",
+        "downloadUrl": "/api/files/download/f_1794485996140_0fe9d62e_reaktivlar_royxati.pdf"
+      }
+    ],
+    "consent": true,
+    "status": "Yakunlandi",
+    "isDeleted": false,
+    "history": [
+      {
+        "id": "h-1794485996177",
+        "timestamp": "2026-11-12T12:19:56.177Z",
+        "action": "Holat o‘zgartirildi: Yangi ➔ Yakunlandi",
+        "status": "Yakunlandi",
+        "comment": "Barcha zarur hujjatlar tayyorlanib, murojaat ijrosi to‘liq yakunlandi",
+        "author": "Administrator"
+      },
+      {
+        "id": "h-1794485996171",
+        "timestamp": "2026-11-12T12:19:56.171Z",
+        "action": "Murojaat ma’lumotlari yangilandi",
+        "status": "Yangi",
+        "comment": "Rasmiy javob tayyorlandi",
+        "author": "Administrator"
+      },
+      {
+        "id": "h-1794485996141",
+        "timestamp": "2026-11-12T12:19:56.141Z",
+        "action": "Murojaat yuborildi va ro‘yxatga olindi",
+        "status": "Yangi",
+        "author": "Murojaatchi"
+      }
+    ],
+    "assignedDepartment": "O‘quv-uslubiy bo‘lim",
+    "assignedOfficer": "Bosh mutaxassis A. Karimov",
+    "officialResponse": "Hurmatli professor, so‘rovingiz bo‘yicha kerakli reaktivlar sotib olish rejasi tasdiqlandi."
+  },
+  {
+    "id": "TKTI-2026-0107",
+    "trackingCode": "TKTI-2026-0107",
+    "createdAt": "2026-11-12T12:19:56.114Z",
+    "updatedAt": "2026-11-12T12:19:56.114Z",
+    "fullName": "Qodirov Jamshid Anvarovich",
+    "phone": "+998 90 123 45 67",
+    "email": "jamshid@student.uz",
+    "applicantType": "Talaba",
+    "category": "Ta’lim jarayoni",
+    "subject": "Dars jadvali va amaliy mashg‘ulotlar bo‘yicha taklif",
+    "content": "Hurmatli rahbariyat, kimyo laboratoriyasi amaliy mashg‘ulotlari vaqtini qayta ko‘rib chiqishingizni so‘rayman.",
+    "attachment": null,
+    "attachments": [],
+    "consent": true,
+    "status": "Yangi",
+    "isDeleted": false,
+    "history": [
+      {
+        "id": "h-1794485996196",
+        "timestamp": "2026-11-12T12:19:56.196Z",
+        "action": "Murojaat \"O‘chirilgan murojaatlar\" bo‘limidan qayta tiklandi",
+        "status": "Yangi",
+        "author": "Administrator"
+      },
+      {
+        "id": "h-1794485996182",
+        "timestamp": "2026-11-12T12:19:56.182Z",
+        "action": "Murojaat o‘chirildi va \"O‘chirilgan murojaatlar\" bo‘limiga o‘tkazildi",
+        "author": "Administrator"
+      },
+      {
+        "id": "h-1794485996114",
+        "timestamp": "2026-11-12T12:19:56.114Z",
+        "action": "Murojaat yuborildi va ro‘yxatga olindi",
+        "status": "Yangi",
+        "author": "Murojaatchi"
+      }
+    ],
+    "previousStatus": "Yangi"
+  },
+  {
+    "id": "TKTI-2026-0106",
+    "trackingCode": "TKTI-2026-0106",
+    "createdAt": "2026-11-12T12:08:17.599Z",
+    "updatedAt": "2026-11-12T12:08:17.641Z",
+    "fullName": "Xoliqova Nargiza Boboxonovna",
+    "phone": "+998 91 987 65 43",
+    "applicantType": "Professor-o‘qituvchi",
+    "category": "Taklif va tashabbuslar",
+    "subject": "Ilmiy tadqiqotlar uchun kimyoviy reaktivlar so‘rovi",
+    "content": "Ilmiy maqola va amaliy tadqiqot uchun zarur reaktivlar ro‘yxati biriktirilgan PDF faylda keltirilgan.",
+    "attachment": {
+      "id": "f_1794485297598_367dd670",
+      "name": "reaktivlar_royxati.pdf",
+      "size": 68,
+      "type": "application/pdf",
+      "savedFilename": "f_1794485297598_367dd670_reaktivlar_royxati.pdf",
+      "url": "/api/files/f_1794485297598_367dd670_reaktivlar_royxati.pdf",
+      "downloadUrl": "/api/files/download/f_1794485297598_367dd670_reaktivlar_royxati.pdf"
+    },
+    "attachments": [
+      {
+        "id": "f_1794485297598_367dd670",
+        "name": "reaktivlar_royxati.pdf",
+        "size": 68,
+        "type": "application/pdf",
+        "savedFilename": "f_1794485297598_367dd670_reaktivlar_royxati.pdf",
+        "url": "/api/files/f_1794485297598_367dd670_reaktivlar_royxati.pdf",
+        "downloadUrl": "/api/files/download/f_1794485297598_367dd670_reaktivlar_royxati.pdf"
+      }
+    ],
+    "consent": true,
+    "status": "Yakunlandi",
+    "isDeleted": false,
+    "history": [
+      {
+        "id": "h-1794485297642",
+        "timestamp": "2026-11-12T12:08:17.641Z",
+        "action": "Holat o‘zgartirildi: Yangi ➔ Yakunlandi",
+        "status": "Yakunlandi",
+        "comment": "Barcha zarur hujjatlar tayyorlanib, murojaat ijrosi to‘liq yakunlandi",
+        "author": "Administrator"
+      },
+      {
+        "id": "h-1794485297636",
+        "timestamp": "2026-11-12T12:08:17.636Z",
+        "action": "Murojaat ma’lumotlari yangilandi",
+        "status": "Yangi",
+        "comment": "Rasmiy javob tayyorlandi",
+        "author": "Administrator"
+      },
+      {
+        "id": "h-1794485297599",
+        "timestamp": "2026-11-12T12:08:17.599Z",
+        "action": "Murojaat yuborildi va ro‘yxatga olindi",
+        "status": "Yangi",
+        "author": "Murojaatchi"
+      }
+    ],
+    "assignedDepartment": "O‘quv-uslubiy bo‘lim",
+    "assignedOfficer": "Bosh mutaxassis A. Karimov",
+    "officialResponse": "Hurmatli professor, so‘rovingiz bo‘yicha kerakli reaktivlar sotib olish rejasi tasdiqlandi."
+  },
+  {
+    "id": "TKTI-2026-0105",
+    "trackingCode": "TKTI-2026-0105",
+    "createdAt": "2026-11-12T12:08:17.583Z",
+    "updatedAt": "2026-11-12T12:08:17.583Z",
+    "fullName": "Qodirov Jamshid Anvarovich",
+    "phone": "+998 90 123 45 67",
+    "email": "jamshid@student.uz",
+    "applicantType": "Talaba",
+    "category": "Ta’lim jarayoni",
+    "subject": "Dars jadvali va amaliy mashg‘ulotlar bo‘yicha taklif",
+    "content": "Hurmatli rahbariyat, kimyo laboratoriyasi amaliy mashg‘ulotlari vaqtini qayta ko‘rib chiqishingizni so‘rayman.",
+    "attachment": null,
+    "attachments": [],
+    "consent": true,
+    "status": "Yangi",
+    "isDeleted": false,
+    "history": [
+      {
+        "id": "h-1794485297660",
+        "timestamp": "2026-11-12T12:08:17.660Z",
+        "action": "Murojaat \"O‘chirilgan murojaatlar\" bo‘limidan qayta tiklandi",
+        "status": "Yangi",
+        "author": "Administrator"
+      },
+      {
+        "id": "h-1794485297646",
+        "timestamp": "2026-11-12T12:08:17.646Z",
+        "action": "Murojaat o‘chirildi va \"O‘chirilgan murojaatlar\" bo‘limiga o‘tkazildi",
+        "author": "Administrator"
+      },
+      {
+        "id": "h-1794485297583",
+        "timestamp": "2026-11-12T12:08:17.583Z",
+        "action": "Murojaat yuborildi va ro‘yxatga olindi",
+        "status": "Yangi",
+        "author": "Murojaatchi"
+      }
+    ],
+    "previousStatus": "Yangi"
+  },
+  {
+    "id": "TKTI-2026-0104",
+    "trackingCode": "TKTI-2026-0104",
+    "createdAt": "2026-11-12T12:01:30.951Z",
+    "updatedAt": "2026-11-12T12:01:31.003Z",
+    "fullName": "Xoliqova Nargiza Boboxonovna",
+    "phone": "+998 91 987 65 43",
+    "applicantType": "Professor-o‘qituvchi",
+    "category": "Taklif va tashabbuslar",
+    "subject": "Ilmiy tadqiqotlar uchun kimyoviy reaktivlar so‘rovi",
+    "content": "Ilmiy maqola va amaliy tadqiqot uchun zarur reaktivlar ro‘yxati biriktirilgan PDF faylda keltirilgan.",
+    "attachment": {
+      "id": "f_1794484890950_7758b80f",
+      "name": "reaktivlar_royxati.pdf",
+      "size": 68,
+      "type": "application/pdf",
+      "savedFilename": "f_1794484890950_7758b80f_reaktivlar_royxati.pdf",
+      "url": "/api/files/f_1794484890950_7758b80f_reaktivlar_royxati.pdf",
+      "downloadUrl": "/api/files/download/f_1794484890950_7758b80f_reaktivlar_royxati.pdf"
+    },
+    "attachments": [
+      {
+        "id": "f_1794484890950_7758b80f",
+        "name": "reaktivlar_royxati.pdf",
+        "size": 68,
+        "type": "application/pdf",
+        "savedFilename": "f_1794484890950_7758b80f_reaktivlar_royxati.pdf",
+        "url": "/api/files/f_1794484890950_7758b80f_reaktivlar_royxati.pdf",
+        "downloadUrl": "/api/files/download/f_1794484890950_7758b80f_reaktivlar_royxati.pdf"
+      }
+    ],
+    "consent": true,
+    "status": "Yakunlandi",
+    "isDeleted": false,
+    "history": [
+      {
+        "id": "h-1794484891004",
+        "timestamp": "2026-11-12T12:01:31.003Z",
+        "action": "Holat o‘zgartirildi: Yangi ➔ Yakunlandi",
+        "status": "Yakunlandi",
+        "comment": "Barcha zarur hujjatlar tayyorlanib, murojaat ijrosi to‘liq yakunlandi",
+        "author": "Administrator"
+      },
+      {
+        "id": "h-1794484890996",
+        "timestamp": "2026-11-12T12:01:30.996Z",
+        "action": "Murojaat ma’lumotlari yangilandi",
+        "status": "Yangi",
+        "comment": "Rasmiy javob tayyorlandi",
+        "author": "Administrator"
+      },
+      {
+        "id": "h-1794484890951",
+        "timestamp": "2026-11-12T12:01:30.951Z",
+        "action": "Murojaat yuborildi va ro‘yxatga olindi",
+        "status": "Yangi",
+        "author": "Murojaatchi"
+      }
+    ],
+    "assignedDepartment": "O‘quv-uslubiy bo‘lim",
+    "assignedOfficer": "Bosh mutaxassis A. Karimov",
+    "officialResponse": "Hurmatli professor, so‘rovingiz bo‘yicha kerakli reaktivlar sotib olish rejasi tasdiqlandi."
+  },
+  {
+    "id": "TKTI-2026-0103",
+    "trackingCode": "TKTI-2026-0103",
+    "createdAt": "2026-11-12T12:01:30.930Z",
+    "updatedAt": "2026-11-12T12:01:30.930Z",
+    "fullName": "Qodirov Jamshid Anvarovich",
+    "phone": "+998 90 123 45 67",
+    "email": "jamshid@student.uz",
+    "applicantType": "Talaba",
+    "category": "Ta’lim jarayoni",
+    "subject": "Dars jadvali va amaliy mashg‘ulotlar bo‘yicha taklif",
+    "content": "Hurmatli rahbariyat, kimyo laboratoriyasi amaliy mashg‘ulotlari vaqtini qayta ko‘rib chiqishingizni so‘rayman.",
+    "attachment": null,
+    "attachments": [],
+    "consent": true,
+    "status": "Yangi",
+    "isDeleted": false,
+    "history": [
+      {
+        "id": "h-1794484891028",
+        "timestamp": "2026-11-12T12:01:31.028Z",
+        "action": "Murojaat \"O‘chirilgan murojaatlar\" bo‘limidan qayta tiklandi",
+        "status": "Yangi",
+        "author": "Administrator"
+      },
+      {
+        "id": "h-1794484891010",
+        "timestamp": "2026-11-12T12:01:31.010Z",
+        "action": "Murojaat o‘chirildi va \"O‘chirilgan murojaatlar\" bo‘limiga o‘tkazildi",
+        "author": "Administrator"
+      },
+      {
+        "id": "h-1794484890930",
+        "timestamp": "2026-11-12T12:01:30.930Z",
+        "action": "Murojaat yuborildi va ro‘yxatga olindi",
+        "status": "Yangi",
+        "author": "Murojaatchi"
+      }
+    ],
+    "previousStatus": "Yangi"
+  },
+  {
+    "id": "TKTI-2026-0102",
+    "trackingCode": "TKTI-2026-0102",
+    "createdAt": "2026-11-12T11:25:54.229Z",
+    "updatedAt": "2026-11-12T11:52:04.713Z",
+    "fullName": "Rustamov Jasur Anvarovich",
+    "phone": "+998 90 123 45 67",
+    "email": "jasur.rustamov@gmail.com",
+    "applicantType": "Talaba",
+    "category": "Ta’lim jarayoni",
+    "subject": "Yakuniy nazorat natijalarini qayta ko‘rib chiqish",
+    "content": "Hurmatli dekanat! Men Kimyo texnologiyasi yo‘nalishi talabasiman. Organik kimyo fani bo‘yicha topshirgan yakuniy nazorat ishimni apellyatsiya komissiyasi ishtirokida qayta ko‘rib chiqishingizni so‘rayman.",
+    "attachment": null,
+    "consent": true,
+    "status": "Ko‘rib chiqilmoqda",
+    "history": [
+      {
+        "id": "h-1794484324713",
+        "timestamp": "2026-11-12T11:52:04.713Z",
+        "action": "Murojaat ma’lumotlari yangilandi",
+        "status": "Ko‘rib chiqilmoqda",
+        "comment": "Rasmiy javob tayyorlandi",
+        "author": "Administrator"
+      },
+      {
+        "id": "h-1794484305325",
+        "timestamp": "2026-11-12T11:51:45.325Z",
+        "action": "Murojaat ma’lumotlari yangilandi",
+        "status": "Ko‘rib chiqilmoqda",
+        "comment": "Rasmiy javob tayyorlandi",
+        "author": "Administrator"
+      },
+      {
+        "id": "h-1794484293873",
+        "timestamp": "2026-11-12T11:51:33.873Z",
+        "action": "Murojaat ma’lumotlari yangilandi",
+        "status": "Ko‘rib chiqilmoqda",
+        "comment": "Rasmiy javob tayyorlandi",
+        "author": "Administrator"
+      },
+      {
+        "id": "h-1794482776971",
+        "timestamp": "2026-11-12T11:26:16.971Z",
+        "action": "Holat o‘zgartirildi: Yangi ➔ Ko‘rib chiqilmoqda",
+        "status": "Ko‘rib chiqilmoqda",
+        "comment": "Rasmiy javob tayyorlandi",
+        "author": "Administrator"
+      },
+      {
+        "id": "h-1794482754229",
+        "timestamp": "2026-11-12T11:25:54.229Z",
+        "action": "Murojaat yuborildi va ro‘yxatga olindi",
+        "status": "Yangi",
+        "author": "Murojaatchi"
+      }
+    ],
+    "assignedDepartment": "O‘quv-uslubiy bo‘lim",
+    "assignedOfficer": "Salimov Dilshod Baxtiyorovich",
+    "officialResponse": "Sizning arizangiz o‘quv-uslubiy bo‘limi tomonidan qabul qilindi. 15-noyabr kuni apellyatsiya komissiyasi yig‘ilishi o‘tkaziladi.",
+    "deadline": "",
+    "responseAttachment": null,
+    "internalNotes": "klutylo"
+  },
+  {
+    "id": "TKTI-2026-0101",
+    "trackingCode": "TKTI-2026-0101",
+    "createdAt": "2026-11-12T11:24:50.868Z",
+    "updatedAt": "2026-11-12T11:24:50.868Z",
+    "fullName": "Azizov Bekzod Mansurovich",
+    "phone": "+998 90 777 66 55",
+    "email": "bekzod.azizov@edu.uz",
+    "applicantType": "Talaba",
+    "category": "Boshqa masalalar",
+    "subject": "2-semestr uchun talabalar turar joyiga joylashish masalasi",
+    "content": "Men Kimyo muhandisligi yo‘nalishi 1-bosqich talabasiman. Toshkent viloyatidan qatnab o‘qish uzoqligi sababli, filialimizning yangi TTJ binosidan yotoqxona o‘rni ajratishingizni so‘rayman.",
+    "attachment": null,
+    "consent": true,
+    "status": "Yangi yuborildi",
+    "history": [
+      {
+        "id": "h-1794482690868",
+        "timestamp": "2026-11-12T11:24:50.868Z",
+        "action": "Murojaat platforma orqali muvaffaqiyatli qabul qilindi",
+        "status": "Yangi yuborildi",
+        "author": "Murojaatchi"
+      }
+    ]
+  }
+]

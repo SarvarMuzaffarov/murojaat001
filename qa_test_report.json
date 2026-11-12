@@ -1,0 +1,137 @@
+[
+  {
+    "testNumber": 1,
+    "name": "Yangi murojaat yuborish",
+    "previousState": "Ro‘yxatdan o‘tmasdan yuborish ishlayotgan edi",
+    "foundIssue": "Rozilik katakchasi va validatsiya yetarli darajada qat’iy emas edi",
+    "fixApplied": "Majburiy rozilik tekshiruvi va xavfsiz ID generatsiyasi mustahkamlandi",
+    "status": "TUZATILDI",
+    "details": "Murojaat muvaffaqiyatli saqlandi. ID: TKTI-2026-0109"
+  },
+  {
+    "testNumber": 2,
+    "name": "Murojaatga PDF hujjat biriktirish",
+    "previousState": "Fayl faqat base64 formatda JSON ichiga tiqilar edi (og‘ir va noqulay)",
+    "foundIssue": "Server xotirasida alohida disk fayli sifatida saqlanmas edi",
+    "fixApplied": "data/uploads papkasida doimiy binar fayl sifatida saqlash va unikal nom berish tizimi yaratildi",
+    "status": "TUZATILDI",
+    "details": "Fayl server diskiga yozildi: f_1794486515049_24c958aa_reaktivlar_royxati.pdf"
+  },
+  {
+    "testNumber": 3,
+    "name": "Hujjatning doimiy saqlanishi",
+    "previousState": "Server qayta yuklanganda fayllar yo‘qolib qolish xavfi mavjud edi",
+    "foundIssue": "Fayl manzillari uchun dedicated HTTP route yo‘q edi",
+    "fixApplied": "GET /api/files/:filename route qo‘shildi, diskda doimiy saqlanishi kafolatlandi",
+    "status": "TUZATILDI",
+    "details": "Fayl diskda mavjud va HTTP orqali 200 OK qaytardi (/app/applet/data/uploads/f_1794486515049_24c958aa_reaktivlar_royxati.pdf)"
+  },
+  {
+    "testNumber": 4,
+    "name": "Admin panelga kirish",
+    "previousState": "Standart login tizimi mavjud edi",
+    "foundIssue": "Token avtorizatsiyasi va himoyalangan sessiya talab qilinar edi",
+    "fixApplied": "HMAC SHA-256 xeshlangan parol va Bearer token sessiyasi o‘rnatildi",
+    "status": "ISHLAYDI",
+    "details": "Admin muvaffaqiyatli tizimga kirdi va sessiya tokeni olindi"
+  },
+  {
+    "testNumber": 5,
+    "name": "Yangi murojaatni ko‘rish",
+    "previousState": "Barcha murojaatlar bitta ro‘yxatda edi",
+    "foundIssue": "O‘chirilganlar bilan aralashish xavfi bor edi",
+    "fixApplied": "view=active filtri orqali faqat faol murojaatlar ko‘rsatilishi ta’minlandi",
+    "status": "TUZATILDI",
+    "details": "Admin ro‘yxatida jami 10 ta faol murojaat ko‘rindi"
+  },
+  {
+    "testNumber": 6,
+    "name": "Hujjatni ochish va yuklab olish",
+    "previousState": "Faqat brauzer dataUrl orqali yuklanar edi",
+    "foundIssue": "Fayllarni to‘g‘ridan-to‘g‘ri serverdan yuklab olish (Content-Disposition: attachment) yo‘q edi",
+    "fixApplied": "GET /api/files/download/:filename endpointi joriy qilindi",
+    "status": "TUZATILDI",
+    "details": "Yuklab olish so‘rovi muvaffaqiyatli o‘tdi. Header: attachment; filename=\"24c958aa_reaktivlar_royxati.pdf\""
+  },
+  {
+    "testNumber": 7,
+    "name": "Murojaatga javob yozish",
+    "previousState": "Javob matni kiritilar edi",
+    "foundIssue": "Javob tarixi to‘liq qayd etilmasligi mumkin edi",
+    "fixApplied": "Amallar tarixiga rasmiy javob yozilgani va muallif qayd etildi",
+    "status": "ISHLAYDI",
+    "details": "Rasmiy javob muvaffaqiyatli kiritildi va saqlandi"
+  },
+  {
+    "testNumber": 8,
+    "name": "Murojaat holatini o‘zgartirish",
+    "previousState": "Holat o‘zgartirish mavjud edi",
+    "foundIssue": "Oldingi holat va yangi holat o‘tishi tarixda aniq belgilanishi zarur edi",
+    "fixApplied": "Holat o‘zgarishi (prev -> next) tarixga avtomatik yozilishi ta’minlandi",
+    "status": "ISHLAYDI",
+    "details": "Holat \"Yakunlandi\" ga o‘zgardi va tarixda qayd etildi"
+  },
+  {
+    "testNumber": 9,
+    "name": "Murojaatni o‘chirish (Soft delete)",
+    "previousState": "To‘g‘ridan-to‘g‘ri butunlay o‘chirib yuborilar edi",
+    "foundIssue": "O‘chirilgan arizalarni qayta tiklash imkoniyati yo‘q edi",
+    "fixApplied": "Soft-delete (Chiqindi qutisi) tizimi joriy etildi, asosiy ro‘yxatdan chiqarilib Chiqindi qutisiga o‘tkazildi",
+    "status": "TUZATILDI",
+    "details": "Murojaat asosiy ro‘yxatdan olindi va Chiqindi qutisiga joylashtirildi (ID: TKTI-2026-0109)"
+  },
+  {
+    "testNumber": 10,
+    "name": "O‘chirilgan murojaatni qayta tiklash",
+    "previousState": "Qayta tiklash funksiyasi mavjud emas edi",
+    "foundIssue": "Admin yanglishib o‘chirgan taqdirda qaytarib bo‘lmas edi",
+    "fixApplied": "POST /api/admin/appeals/:id/restore funksiyasi orqali to‘liq qayta tiklash ta’minlandi",
+    "status": "TUZATILDI",
+    "details": "Murojaat avvalgi holati bilan asosiy ro‘yxatga qaytarildi (ID: TKTI-2026-0109)"
+  },
+  {
+    "testNumber": 11,
+    "name": "Qayta tiklangan murojaatdagi hujjatni yana ochish",
+    "previousState": "Fayllar xavfsizligi kafolatlanmagan edi",
+    "foundIssue": "O‘chirish va tiklash paytida fayllar uzilib qolishi mumkin edi",
+    "fixApplied": "Fayl diski va murojaat o‘rtasidagi bog‘liqlik doimiy saqlab qolindi",
+    "status": "TUZATILDI",
+    "details": "Hujjat diskda va tarmoqda to‘liq mavjud (HTTP 200 OK)"
+  },
+  {
+    "testNumber": 12,
+    "name": "Murojaatni butunlay o‘chirish",
+    "previousState": "Fayllar diskda yetim (orphaned) bo‘lib qolar edi",
+    "foundIssue": "Server xotirasi to‘lib ketishi va keraksiz fayllar qolishi xavfi bor edi",
+    "fixApplied": "DELETE /api/admin/appeals/:id/permanent fizik fayllarni ham, DB yozuvini ham butunlay tozalaydi",
+    "status": "TUZATILDI",
+    "details": "Murojaat va uning diski to‘liq tozalandi"
+  },
+  {
+    "testNumber": 13,
+    "name": "Excel eksportni tekshirish",
+    "previousState": "Oddiy eksport mavjud edi",
+    "foundIssue": "O‘chirilgan murojaatlar ham Excelga tushib qolar edi",
+    "fixApplied": "Excel eksport faqat faol arizalarni saralaydi, ustunlar tartiblandi",
+    "status": "TUZATILDI",
+    "details": "Excel fayli muvaffaqiyatli shakllantirildi (26671 bayt)"
+  },
+  {
+    "testNumber": 14,
+    "name": "Admin xavfsizligi va begonalar kirishini cheklash",
+    "previousState": "Admin endpointlari mavjud edi",
+    "foundIssue": "Har bir so‘rov qat’iy 401 bilan qaytarilishi kerak",
+    "fixApplied": "adminAuth middleware token yo‘qligi va noto‘g‘ri tokenni 401 bilan rad etadi",
+    "status": "ISHLAYDI",
+    "details": "Tokensiz va soxta tokenli so‘rovlar 401 Unauthorized bilan to‘xtatildi"
+  },
+  {
+    "testNumber": 15,
+    "name": "Server qayta ishga tushgandan keyin ma’lumotlar saqlanishi",
+    "previousState": "Xotira faqat JSON faylga bog‘liq edi",
+    "foundIssue": "Binar fayllar xavfsiz papkada alohida saqlanishi kerak edi",
+    "fixApplied": "data/appeals.json va data/uploads/ diski to‘liq sinxron holatda saqlanadi",
+    "status": "ISHLAYDI",
+    "details": "Ma’lumotlar bazada mavjud (10 ta yozuv) va diskdagi fayl saqlanib turibdi"
+  }
+]

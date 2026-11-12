@@ -1,0 +1,8 @@
+{
+  "name": "Remix Remix Remix TKTI Yangiyer – Murojaatlar portali",
+  "description": "Toshkent kimyo-texnologiya instituti Yangiyer filiali uchun murojaat, taklif, shikoyat va arizalarni onlayn qabul qilish va boshqarish platformasi.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}

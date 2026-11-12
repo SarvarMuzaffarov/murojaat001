@@ -1,0 +1,38 @@
+{
+  "address": "Sirdaryo viloyati, Yangiyer shahri, Tinchlik ko‘chasi, 1-uy",
+  "landmark": "Yangiyer shahar markazi",
+  "phonePrimary": "+998 (67) 250-12-34",
+  "phoneSecondary": "+998 (67) 250-10-06",
+  "hotline": "+998 (67) 250-12-34",
+  "email": "info@yangiyer-tkti.uz",
+  "telegram": "@tkti_yangiyer_filiali",
+  "workDays": "Dushanba — Juma",
+  "workHours": "09:00 — 18:00",
+  "lunchTime": "13:00 — 14:00",
+  "receptionList": [
+    {
+      "role": "Filial direktori",
+      "person": "Filial direktori qabulxonasi",
+      "time": "Chorshanba: 15:00 — 17:00",
+      "room": "201-xona (Bosh bino)"
+    },
+    {
+      "role": "O‘quv ishlari bo‘yicha direktor o‘rinbosari",
+      "person": "O‘quv-uslubiy bo‘lim mudiri",
+      "time": "Seshanba va Payshanba: 14:00 — 17:00",
+      "room": "205-xona"
+    },
+    {
+      "role": "Yoshlar masalalari va ma’naviy-ma’rifiy ishlar bo‘yicha direktor o‘rinbosari",
+      "person": "Yoshlar bilan ishlash bo‘limi",
+      "time": "Dushanba va Juma: 10:00 — 13:00",
+      "room": "114-xona"
+    },
+    {
+      "role": "Korrupsiyaga qarshi kurashish \"Komplayens-nazorat\" bo‘limi",
+      "person": "Bosh mutaxassis",
+      "time": "Har ish kuni: 09:00 — 17:00",
+      "room": "108-xona"
+    }
+  ]
+}
