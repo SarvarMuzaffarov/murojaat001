@@ -41,8 +41,10 @@ import {
   permanentDeleteAppealUnified,
   exportAppealsToExcelClient,
   getBranchSettingsUnified,
+  getBranchSettingsUnifiedAsync,
   saveBranchSettingsUnified,
-  subscribeToAppeals
+  subscribeToAppeals,
+  subscribeToSettings
 } from '../utils/storage';
 
 interface AdminDashboardProps {
@@ -142,13 +144,15 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
     }
   };
 
-  // Fetch settings
-  const fetchSettings = () => {
+  // Fetch settings from Firestore Cloud
+  const fetchSettings = async () => {
     try {
-      const data = getBranchSettingsUnified();
+      const data = await getBranchSettingsUnifiedAsync();
       setSettingsData(data);
     } catch (err) {
       console.error('Settings load error:', err);
+      const fallback = getBranchSettingsUnified();
+      setSettingsData(fallback);
     }
   };
 
@@ -156,13 +160,21 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
     fetchAppeals();
     fetchSettings();
 
-    // Subscribe to live Firestore changes across all devices
-    const unsubscribe = subscribeToAppeals(() => {
+    // Subscribe to live Firestore appeals changes across all devices
+    const unsubscribeAppeals = subscribeToAppeals(() => {
       fetchAppeals();
     });
 
+    // Subscribe to live Firestore settings changes across all computers
+    const unsubscribeSettings = subscribeToSettings((updatedSettings) => {
+      if (updatedSettings) {
+        setSettingsData(updatedSettings);
+      }
+    });
+
     return () => {
-      if (typeof unsubscribe === 'function') unsubscribe();
+      if (typeof unsubscribeAppeals === 'function') unsubscribeAppeals();
+      if (typeof unsubscribeSettings === 'function') unsubscribeSettings();
     };
   }, [activeTab, selectedStatus, selectedCategory, selectedApplicantType, startDate, endDate]);
 
@@ -274,10 +286,11 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
     setSettingsSuccessMsg(null);
 
     try {
-      saveBranchSettingsUnified(settingsData, token);
-      setSettingsSuccessMsg('Filial aloqa ma’lumotlari muvaffaqiyatli saqlandi!');
+      await saveBranchSettingsUnified(settingsData, token);
+      setSettingsSuccessMsg('Filial aloqa ma’lumotlari bulutli serverga (Firestore) saqlandi va barcha qurilmalarda yangilandi!');
+      showToast('Aloqa ma’lumotlari barcha kompyuter va telefonlar uchun muvaffaqiyatli yangilandi!', 'success');
       onSettingsUpdated();
-      setTimeout(() => setSettingsSuccessMsg(null), 3000);
+      setTimeout(() => setSettingsSuccessMsg(null), 4000);
     } catch (err: any) {
       showToast('Saqlashda xatolik: ' + (err.message || ''), 'error');
     } finally {

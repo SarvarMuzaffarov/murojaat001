@@ -2,12 +2,15 @@ import React from 'react';
 import { BranchLogo } from './BranchLogo';
 import { Phone, Mail, MapPin, ExternalLink, ShieldCheck, Heart } from 'lucide-react';
 
+import type { BranchSettings } from '../types/appeal';
+
 interface FooterProps {
+  settings?: BranchSettings | null;
   onNav: (tab: 'home' | 'submit' | 'check' | 'stats' | 'contact' | 'admin') => void;
   onOpenAdminLogin: () => void;
 }
 
-export const Footer: React.FC<FooterProps> = ({ onNav, onOpenAdminLogin }) => {
+export const Footer: React.FC<FooterProps> = ({ settings, onNav, onOpenAdminLogin }) => {
   return (
     <footer className="bg-[#0b264d] text-slate-300 border-t border-slate-800">
       {/* Main Footer Container */}
@@ -147,8 +150,11 @@ export const Footer: React.FC<FooterProps> = ({ onNav, onOpenAdminLogin }) => {
               </li>
             </ul>
 
-            <div className="pt-2 text-xs text-slate-400">
-              <span>Sirdaryo viloyati, Yangiyer shahri, Tinchlik ko‘chasi, 1-uy</span>
+            <div className="pt-2 text-xs text-slate-300 space-y-1">
+              <div>📍 {settings?.address || 'Sirdaryo viloyati, Yangiyer shahri, Tinchlik ko‘chasi, 1-uy'}</div>
+              {settings?.hotline && (
+                <div className="text-emerald-400 font-semibold">📞 Ishonch telefoni: {settings.hotline}</div>
+              )}
             </div>
           </div>
         </div>

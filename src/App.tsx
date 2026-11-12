@@ -8,10 +8,18 @@ import { ContactSection } from './components/ContactSection';
 import { Footer } from './components/Footer';
 import { AdminLoginModal } from './components/AdminLoginModal';
 import { AdminDashboard } from './components/AdminDashboard';
-import { getBranchSettingsUnified } from './utils/storage';
+import { 
+  getBranchSettingsUnified, 
+  getBranchSettingsUnifiedAsync, 
+  subscribeToSettings 
+} from './utils/storage';
+import type { BranchSettings } from './types/appeal';
 
 export default function App() {
   const [activeTab, setActiveTab] = useState<'home' | 'submit' | 'check' | 'admin'>('home');
+
+  // Real-time Branch Settings state synchronized via Firestore
+  const [branchSettings, setBranchSettings] = useState<BranchSettings>(getBranchSettingsUnified());
 
   // Status check pre-fill state
   const [checkId, setCheckId] = useState('');
@@ -28,6 +36,27 @@ export default function App() {
       setAdminToken(savedToken);
       setIsAdminLoggedIn(true);
     }
+
+    // 1. Fetch latest settings from Firestore cloud
+    getBranchSettingsUnifiedAsync().then((latest) => {
+      if (latest) setBranchSettings(latest);
+    });
+
+    // 2. Real-time live listener for multi-computer / multi-device synchronization
+    const unsubscribe = subscribeToSettings((updated) => {
+      if (updated) setBranchSettings(updated);
+    });
+
+    // 3. Local tab event listener
+    const handleLocalUpdate = (e: any) => {
+      if (e.detail) setBranchSettings(e.detail);
+    };
+    window.addEventListener('tkti_settings_changed', handleLocalUpdate);
+
+    return () => {
+      if (typeof unsubscribe === 'function') unsubscribe();
+      window.removeEventListener('tkti_settings_changed', handleLocalUpdate);
+    };
   }, []);
 
   const handleAdminLoginSuccess = (token: string) => {
@@ -82,7 +111,7 @@ export default function App() {
 
             <GuideSection />
             <ContactSection
-              settings={getBranchSettingsUnified()}
+              settings={branchSettings}
               onGoToSubmit={() => {
                 setActiveTab('submit');
                 window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -117,7 +146,11 @@ export default function App() {
             <AdminDashboard
               token={adminToken}
               onLogout={handleAdminLogout}
-              onSettingsUpdated={() => {}}
+              onSettingsUpdated={() => {
+                getBranchSettingsUnifiedAsync().then(s => {
+                  if (s) setBranchSettings(s);
+                });
+              }}
             />
           ) : (
             <div className="py-20 text-center space-y-4">
@@ -137,6 +170,7 @@ export default function App() {
 
       {/* Footer */}
       <Footer
+        settings={branchSettings}
         onNav={(tab) => {
           if (tab === 'admin') {
             if (isAdminLoggedIn) setActiveTab('admin');

@@ -790,7 +790,29 @@ export function exportAppealsToExcelClient(appeals: Appeal[]): void {
 }
 
 /**
- * Get Branch Settings (Synchronized with Firestore)
+ * Real-time subscription to Branch Settings in Firestore
+ * Synchronizes phone numbers, address, emails, reception schedules across ALL devices/computers instantly!
+ */
+export function subscribeToSettings(onUpdate: (settings: BranchSettings) => void): () => void {
+  try {
+    const unsub = onSnapshot(doc(db, 'settings', 'general'), (docSnap) => {
+      if (docSnap.exists()) {
+        const data = docSnap.data() as BranchSettings;
+        localStorage.setItem(SETTINGS_STORAGE_KEY, JSON.stringify(data));
+        onUpdate(data);
+      }
+    }, (error) => {
+      console.warn('Firestore settings onSnapshot warning:', error);
+    });
+    return unsub;
+  } catch (err) {
+    console.warn('Failed to subscribe to settings:', err);
+    return () => {};
+  }
+}
+
+/**
+ * Get Branch Settings (Synchronized with Cloud Firestore)
  */
 export async function getBranchSettingsUnifiedAsync(): Promise<BranchSettings> {
   try {
@@ -799,6 +821,11 @@ export async function getBranchSettingsUnifiedAsync(): Promise<BranchSettings> {
       const data = docSnap.data() as BranchSettings;
       localStorage.setItem(SETTINGS_STORAGE_KEY, JSON.stringify(data));
       return data;
+    } else {
+      // First boot on cloud: Initialize default branch settings in Firestore
+      await setDoc(doc(db, 'settings', 'general'), sanitizeForFirestore(DEFAULT_BRANCH_SETTINGS));
+      localStorage.setItem(SETTINGS_STORAGE_KEY, JSON.stringify(DEFAULT_BRANCH_SETTINGS));
+      return DEFAULT_BRANCH_SETTINGS;
     }
   } catch (e) {
     console.warn('Firestore settings fetch error:', e);
@@ -815,19 +842,26 @@ export function getBranchSettingsUnified(): BranchSettings {
 }
 
 /**
- * Save Branch Settings (Synchronized with Firestore)
+ * Save Branch Settings with Direct Cloud Firestore Push
+ * Instantly broadcasts updated contact info to all open browsers and devices!
  */
 export async function saveBranchSettingsUnified(settings: BranchSettings, token?: string): Promise<void> {
+  // 1. Immediately cache locally
   try {
     localStorage.setItem(SETTINGS_STORAGE_KEY, JSON.stringify(settings));
+    window.dispatchEvent(new CustomEvent('tkti_settings_changed', { detail: settings }));
   } catch (e) {}
 
+  // 2. Direct authoritative write to Firestore Cloud Database
   try {
-    await setDoc(doc(db, 'settings', 'general'), sanitizeForFirestore(settings));
-  } catch (e) {
-    console.warn('Firestore settings save error:', e);
+    const cleanSettings = sanitizeForFirestore(settings);
+    await setDoc(doc(db, 'settings', 'general'), cleanSettings, { merge: true });
+  } catch (fsErr) {
+    console.error('Firestore save settings error:', fsErr);
+    throw new Error('Bulutli bazaga sozlamalarni saqlashda xatolik yuz berdi');
   }
 
+  // 3. Optional local express backend sync (non-blocking)
   try {
     fetch('/api/admin/settings', {
       method: 'PUT',
