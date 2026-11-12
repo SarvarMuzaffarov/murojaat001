@@ -1,4 +1,5 @@
-import express, { Request, Response, NextFunction } from 'express';
+import express from 'express';
+import type { Request, Response, NextFunction } from 'express';
 import fs from 'fs';
 import path from 'path';
 import crypto from 'crypto';
@@ -16,7 +17,8 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 const app = express();
-const PORT = Number(process.env.PORT) || 3000;
+// Internal backend port must always be 3000 because Nginx runs on 8080 and proxies to 3000
+const PORT = 3000;
 
 // CORS & Preflight handling for cloud preview environments and iframes
 app.use((req: Request, res: Response, next: NextFunction) => {

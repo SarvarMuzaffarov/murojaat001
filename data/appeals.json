@@ -1,5 +1,57 @@
 [
   {
+    "id": "TKTI-2026-0114",
+    "trackingCode": "TKTI-2026-0114",
+    "createdAt": "2026-11-12T13:19:23.144Z",
+    "updatedAt": "2026-11-12T13:19:23.144Z",
+    "fullName": "Jamshid Qodirov",
+    "phone": "+998901234567",
+    "applicantType": "Talaba",
+    "category": "Ta’lim jarayoni",
+    "subject": "Taklif",
+    "content": "Dars jadvalini optimallashtirish bo‘yicha taklif",
+    "attachment": null,
+    "attachments": [],
+    "consent": true,
+    "status": "Yangi",
+    "isDeleted": false,
+    "history": [
+      {
+        "id": "h-1794489563144",
+        "timestamp": "2026-11-12T13:19:23.144Z",
+        "action": "Murojaat yuborildi va ro‘yxatga olindi",
+        "status": "Yangi",
+        "author": "Murojaatchi"
+      }
+    ]
+  },
+  {
+    "id": "TKTI-2026-0113",
+    "trackingCode": "TKTI-2026-0113",
+    "createdAt": "2026-11-12T13:16:44.100Z",
+    "updatedAt": "2026-11-12T13:16:44.100Z",
+    "fullName": "Test User",
+    "phone": "+998901234567",
+    "applicantType": "Talaba",
+    "category": "Ta’lim jarayoni",
+    "subject": "Sinov",
+    "content": "Sinov matni kamida 15 ta harfdan iborat",
+    "attachment": null,
+    "attachments": [],
+    "consent": true,
+    "status": "Yangi",
+    "isDeleted": false,
+    "history": [
+      {
+        "id": "h-1794489404100",
+        "timestamp": "2026-11-12T13:16:44.100Z",
+        "action": "Murojaat yuborildi va ro‘yxatga olindi",
+        "status": "Yangi",
+        "author": "Murojaatchi"
+      }
+    ]
+  },
+  {
     "id": "TKTI-2026-0112",
     "trackingCode": "TKTI-2026-0112",
     "createdAt": "2026-11-12T13:11:05.321Z",
